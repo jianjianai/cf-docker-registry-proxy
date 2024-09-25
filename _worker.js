@@ -1,6 +1,4 @@
-(()=>{
-
-function getHomePageHTML() {
+function getHomePageHTML(){
     return `<!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -66,22 +64,20 @@ sudo systemctl restart docker</pre>
 </html>`
 }
 
-addEventListener("fetch", (event) => {
-    event.passThroughOnException();
-    const request = event.request;
-    const url = new URL(request.url);
-    if (url.pathname == "/") {
-        event.respondWith(new Response(getHomePageHTML(url.hostname), {
-            headers: {
-                "content-type": "text/html;charset=utf-8"
-            }
-        }));
-        return;
+export default {
+    async fetch(request, env, ctx) {
+        ctx.passThroughOnException();
+        const url = new URL(request.url);
+        if (url.pathname == "/") {
+            return new Response(getHomePageHTML(url.hostname), {
+                headers: {
+                    "content-type": "text/html;charset=utf-8"
+                }
+            });
+        }
+        return handleRequest(request)
     }
-    event.respondWith(handleRequest(request));
-});
-
-
+}
 
 // 配置参考
 // https://github.com/ciiiii/cloudflare-docker-proxy
@@ -232,6 +228,3 @@ async function fetchToken(wwwAuthenticate, scope, authorization) {
     }
     return await fetch(url, { method: "GET", headers: headers });
 }
-
-
-})();
