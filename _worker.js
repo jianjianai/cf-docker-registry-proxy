@@ -1,3 +1,5 @@
+(()=>{
+
 function getHomePageHTML() {
     return `<!DOCTYPE html>
 <html lang="zh-cn">
@@ -230,3 +232,6 @@ async function fetchToken(wwwAuthenticate, scope, authorization) {
     }
     return await fetch(url, { method: "GET", headers: headers });
 }
+
+
+})();
