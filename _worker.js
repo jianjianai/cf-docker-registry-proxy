@@ -79,8 +79,6 @@ export default {
     }
 }
 
-//环境变量??????
-const MODE = "production";
 
 // 配置参考
 // https://github.com/ciiiii/cloudflare-docker-proxy
@@ -97,6 +95,10 @@ const routes = {
     // "cloudsmith.jjaw.cn": "https://docker.cloudsmith.io",
     // "ecr.jjaw.cn": "https://public.ecr.aws",
 };
+
+//环境变量??????
+const MODE = "production";
+const TARGET_UPSTREAM = dockerHub;
 
 function routeByHosts(host) {
     if (host in routes) {
@@ -225,7 +227,7 @@ async function fetchToken(wwwAuthenticate, scope, authorization) {
     if (scope) {
         url.searchParams.set("scope", scope);
     }
-    headers = new Headers();
+    const headers = new Headers();
     if (authorization) {
         headers.set("Authorization", authorization);
     }
