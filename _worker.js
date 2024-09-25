@@ -79,6 +79,9 @@ export default {
     }
 }
 
+//环境变量??????
+const MODE = "production";
+
 // 配置参考
 // https://github.com/ciiiii/cloudflare-docker-proxy
 const dockerHub = "https://registry-1.docker.io";
